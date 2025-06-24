@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: linear-gradient(180deg, #f8e7d6 0%, #fff8f2 100%);
+  overflow-x: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.fade-up.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-blur {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.gallery-item {
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+}
+
+.service-card {
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.wave-divider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.wave-divider svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 180px;
+}
+
+.wave-divider .shape-fill {
+  fill: #e07d2b;
+  opacity: 0.15;
+}
+
+/* Estilos do Carrossel */
+.carousel-container {
+  position: relative;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 4rem;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  gap: 1rem;
+}
+
+.carousel-slide {
+  flex: 0 0 calc((100% - 2rem) / 3);
+  min-width: calc((100% - 2rem) / 3);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(201, 93, 26, 0.9);
+  color: white;
+  border: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  z-index: 20;
+}
+
+.carousel-button:hover {
+  background: rgba(201, 93, 26, 1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-button.prev {
+  left: 0;
+}
+
+.carousel-button.next {
+  right: 0;
+}
+
+@media (max-width: 768px) {
+  .carousel-container {
+    padding: 0 3rem;
+  }
+  
+  .carousel-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+  }
+
+  .carousel-button.prev {
+    left: 0;
+  }
+
+  .carousel-button.next {
+    right: 0;
+  }
+
+  /* Esconde a barra superior no mobile */
+  .top-bar {
+    display: none;
+  }
+
+  /* Remove o espaço extra que a barra ocupava */
+  #inicio {
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  /* Ajustes para o banner e botões de contato */
+  .rounded-3xl.overflow-hidden.shadow-2xl {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .rounded-3xl.overflow-hidden.shadow-2xl img {
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+    object-fit: cover;
+  }
+
+  .flex.justify-center.md\:space-x-6.flex-wrap {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .flex.justify-center.md\:space-x-6.flex-wrap a {
+    width: 80%;
+    max-width: 300px;
+    margin: 0;
+    text-align: center;
+  }
+}
