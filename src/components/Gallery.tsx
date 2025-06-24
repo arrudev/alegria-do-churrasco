@@ -2,53 +2,46 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const images = [
-  { src: '/images/churras.png', alt: 'Churrasco' },
-  { src: '/images/salada.png', alt: 'Saladas' },
-  { src: '/images/churras2.png', alt: 'Evento' },
-  { src: '/images/churras3.png', alt: 'Evento' },
-  { src: '/images/equipe.png', alt: 'Evento' },
-  { src: '/images/mesa.png', alt: 'Evento' },
-  { src: '/images/churras4.png', alt: 'Evento' },
-  { src: '/images/churras5.png', alt: 'Evento' },
-  { src: '/images/churras6.png', alt: 'Evento' },
-  { src: '/images/mesa2.png', alt: 'Evento' },
-  { src: '/images/churras7.png', alt: 'Evento' },
-  { src: '/images/mesa_salada.png', alt: 'Evento' },
+  { src: '/images/churras.png', alt: 'Churrasco na Brasa', category: 'Carnes' },
+  { src: '/images/salada.png', alt: 'Mesa de Saladas', category: 'Acompanhamentos' },
+  { src: '/images/churras2.png', alt: 'Churrasco para Eventos', category: 'Eventos' },
+  { src: '/images/churras3.png', alt: 'Preparo Especial', category: 'Carnes' },
+  { src: '/images/equipe.png', alt: 'Nossa Equipe', category: 'Equipe' },
+  { src: '/images/mesa.png', alt: 'Mesa Decorada', category: 'Eventos' },
+  { src: '/images/churras4.png', alt: 'Cortes Especiais', category: 'Carnes' },
+  { src: '/images/churras5.png', alt: 'Churrasco Gourmet', category: 'Carnes' },
+  { src: '/images/churras6.png', alt: 'Preparo na Brasa', category: 'Carnes' },
+  { src: '/images/mesa2.png', alt: 'Decoração de Mesa', category: 'Eventos' },
+  { src: '/images/churras7.png', alt: 'Carnes Nobres', category: 'Carnes' },
+  { src: '/images/mesa_salada.png', alt: 'Buffet Completo', category: 'Acompanhamentos' },
 ]
+
+const categories = ['Todos', ...Array.from(new Set(images.map(img => img.category)))]
 
 export default function Gallery() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [selectedCategory, setSelectedCategory] = useState('Todos')
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const trackRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active')
-        }
-      })
-    }, {
-      threshold: 0.1
-    })
-
-    document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el))
-
-    return () => observer.disconnect()
-  }, [])
+  const filteredImages = images.filter(img => 
+    selectedCategory === 'Todos' ? true : img.category === selectedCategory
+  )
 
   const moveToSlide = (index: number, smooth = true) => {
     if (isTransitioning || !trackRef.current) return
 
     const slideWidth = trackRef.current.children[0].getBoundingClientRect().width
-    const gapWidth = 16 // 1rem gap
+    const gapWidth = 24 // 1.5rem gap
 
     if (!smooth) {
       trackRef.current.style.transition = 'none'
     } else {
-      trackRef.current.style.transition = 'transform 0.5s ease-in-out'
+      trackRef.current.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
       setIsTransitioning(true)
     }
 
@@ -58,14 +51,14 @@ export default function Gallery() {
 
   const handlePrevClick = () => {
     if (currentIndex <= 0) {
-      moveToSlide(images.length - 3)
+      moveToSlide(filteredImages.length - 3)
     } else {
       moveToSlide(currentIndex - 1)
     }
   }
 
   const handleNextClick = () => {
-    if (currentIndex >= images.length - 3) {
+    if (currentIndex >= filteredImages.length - 3) {
       moveToSlide(0)
     } else {
       moveToSlide(currentIndex + 1)
@@ -77,34 +70,137 @@ export default function Gallery() {
   }
 
   return (
-    <section id="galeria" className="py-12 bg-gradient-to-b from-bege to-white px-6">
-      <h2 className="text-4xl font-bold text-center text-churrasco-600 mb-12 fade-up">Nossa Galeria</h2>
-      <div className="carousel-container max-w-6xl mx-auto fade-up">
-        <button className="carousel-button prev" onClick={handlePrevClick}>
-          <i className="fas fa-chevron-left"></i>
-        </button>
-        <button className="carousel-button next" onClick={handleNextClick}>
-          <i className="fas fa-chevron-right"></i>
-        </button>
-        <div 
-          className="carousel-track" 
-          ref={trackRef}
-          onTransitionEnd={handleTransitionEnd}
+    <section id="galeria" className="section-spacing bg-gradient-to-b from-churrasco-50/30 to-white">
+      <div className="max-w-7xl mx-auto container-padding">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          {images.map((image, index) => (
-            <div key={index} className="carousel-slide">
-              <div className="gallery-item overflow-hidden rounded-2xl shadow-lg border border-churrasco-200 h-80">
-                <Image 
-                  src={image.src} 
-                  alt={image.alt}
-                  width={400}
-                  height={320}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
+          <h2 className="heading-primary mb-6">Nossa Galeria</h2>
+          <p className="text-xl text-churrasco-700 max-w-2xl mx-auto">
+            Confira alguns momentos especiais e pratos deliciosos que preparamos com muito carinho
+          </p>
+        </motion.div>
+
+        {/* Filtro por Categorias */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex flex-wrap justify-center gap-3 mb-12"
+        >
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`px-6 py-2 rounded-full text-base font-medium transition-all duration-300 ${
+                selectedCategory === category
+                  ? 'bg-churrasco-500 text-white shadow-lg'
+                  : 'bg-white text-churrasco-600 hover:bg-churrasco-50 border border-churrasco-200'
+              }`}
+            >
+              {category}
+            </button>
           ))}
+        </motion.div>
+
+        {/* Carrossel de Imagens */}
+        <div className="carousel-container">
+          <button 
+            className="carousel-button prev"
+            onClick={handlePrevClick}
+            aria-label="Imagem anterior"
+          >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button 
+            className="carousel-button next"
+            onClick={handleNextClick}
+            aria-label="Próxima imagem"
+          >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <motion.div 
+            className="carousel-track"
+            ref={trackRef}
+            onTransitionEnd={handleTransitionEnd}
+            layout
+          >
+            {filteredImages.map((image, index) => (
+              <motion.div 
+                key={image.src}
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3 }}
+                className="carousel-slide"
+              >
+                <div 
+                  className="gallery-item overflow-hidden rounded-3xl shadow-xl cursor-pointer"
+                  onClick={() => setSelectedImage(image.src)}
+                >
+                  <div className="relative h-80 group">
+                    <Image 
+                      src={image.src} 
+                      alt={image.alt}
+                      width={400}
+                      height={320}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                      <p className="text-white font-medium">{image.alt}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
+
+        {/* Modal de Visualização */}
+        <AnimatePresence>
+          {selectedImage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedImage(null)}
+              className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+            >
+              <motion.div
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.8 }}
+                className="relative max-w-5xl w-full"
+              >
+                <button
+                  onClick={() => setSelectedImage(null)}
+                  className="absolute -top-12 right-0 text-white hover:text-churrasco-300 transition-colors"
+                >
+                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                <Image
+                  src={selectedImage}
+                  alt="Imagem ampliada"
+                  width={1920}
+                  height={1080}
+                  className="w-full h-auto rounded-lg"
+                />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   )
