@@ -5,18 +5,23 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const images = [
-  { src: '/images/churras.png', alt: 'Churrasco na Brasa', category: 'Carnes' },
+  { src: '/images/churras.png', alt: 'Churrasco na Brasa', category: 'Churrasco' },
   { src: '/images/salada.png', alt: 'Mesa de Saladas', category: 'Acompanhamentos' },
-  { src: '/images/churras2.png', alt: 'Churrasco para Eventos', category: 'Eventos' },
-  { src: '/images/churras3.png', alt: 'Preparo Especial', category: 'Carnes' },
+  { src: '/images/churras2.png', alt: 'Churrasco para Eventos', category: 'Churrasco' },
+  { src: '/images/churras3.png', alt: 'Preparo Especial', category: 'Churrasco' },
   { src: '/images/equipe.png', alt: 'Nossa Equipe', category: 'Equipe' },
   { src: '/images/mesa.png', alt: 'Mesa Decorada', category: 'Eventos' },
-  { src: '/images/churras4.png', alt: 'Cortes Especiais', category: 'Carnes' },
-  { src: '/images/churras5.png', alt: 'Churrasco Gourmet', category: 'Carnes' },
-  { src: '/images/churras6.png', alt: 'Preparo na Brasa', category: 'Carnes' },
   { src: '/images/mesa2.png', alt: 'Decoração de Mesa', category: 'Eventos' },
-  { src: '/images/churras7.png', alt: 'Carnes Nobres', category: 'Carnes' },
-  { src: '/images/mesa_salada.png', alt: 'Buffet Completo', category: 'Acompanhamentos' },
+  { src: '/images/mesa3.png', alt: 'Mesa Elegante', category: 'Acompanhamentos' },
+  { src: '/images/equipe2.png', alt: 'Equipe em Ação', category: 'Equipe' },
+  { src: '/images/mesa4.png', alt: 'Decoração Especial', category: 'Eventos' },
+  { src: '/images/churras4.png', alt: 'Cortes Especiais', category: 'Churrasco' },
+  { src: '/images/churras5.png', alt: 'Churrasco Gourmet', category: 'Equipe' },
+  { src: '/images/churras6.png', alt: 'Preparo na Brasa', category: 'Churrasco' },
+  { src: '/images/equipe3.png', alt: 'Equipe em Ação', category: 'Equipe' },
+  { src: '/images/churras7.png', alt: 'Churrasco Nobres', category: 'Churrasco' },
+  { src: '/images/churras8.png', alt: 'Churrasco Premium', category: 'Churrasco' },
+  { src: '/images/salada2.png', alt: 'Buffet Completo', category: 'Acompanhamentos' },
 ]
 
 const categories = ['Todos', ...Array.from(new Set(images.map(img => img.category)))]
