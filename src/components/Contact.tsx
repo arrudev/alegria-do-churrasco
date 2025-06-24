@@ -45,59 +45,38 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-3xl mx-auto"
+          className="max-w-4xl mx-auto"
         >
-          <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-xl border border-churrasco-100">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-churrasco-700">
+          <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-8 md:p-10 shadow-xl border border-churrasco-100">
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-2xl font-bold text-churrasco-700 mb-4 text-center">
                   Redes Sociais
                 </h3>
-                <p className="text-churrasco-600">
+                <p className="text-churrasco-600 mb-6 text-center">
                   Siga-nos nas redes sociais para acompanhar nosso trabalho e ficar por dentro das novidades!
                 </p>
-                <div className="flex flex-col space-y-4">
-                  {socialLinks.map((link) => (
-                    <motion.a
-                      key={link.name}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`${link.color} px-6 py-4 rounded-xl text-white text-lg transition-all duration-300 flex items-center justify-center space-x-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1`}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      {link.icon}
-                      <span>{link.name}</span>
-                    </motion.a>
-                  ))}
-                </div>
               </div>
-
-              <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-churrasco-700">
-                  Horário de Atendimento
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3 text-churrasco-600">
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>Segunda a Sábado: 9h às 18h</span>
-                  </div>
-                  <div className="flex items-center space-x-3 text-churrasco-600">
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span>Rio de Janeiro e Região</span>
-                  </div>
-                </div>
-                <div className="pt-4">
-                  <p className="text-churrasco-600">
-                    Responderemos sua mensagem o mais breve possível. Aguardamos seu contato!
-                  </p>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {socialLinks.map((link) => (
+                  <motion.a
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${link.color} px-6 py-4 rounded-xl text-white text-lg transition-all duration-300 flex items-center justify-center space-x-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1`}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {link.icon}
+                    <span>{link.name}</span>
+                  </motion.a>
+                ))}
+              </div>
+              <div className="pt-6 text-center">
+                <p className="text-churrasco-600">
+                  Responderemos sua mensagem o mais breve possível. Aguardamos seu contato!
+                </p>
               </div>
             </div>
           </div>

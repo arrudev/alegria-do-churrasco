@@ -7,7 +7,7 @@ export default function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 50
+      const isScrolled = window.scrollY > 20
       if (isScrolled !== scrolled) {
         setScrolled(isScrolled)
       }
@@ -26,7 +26,7 @@ export default function Navigation() {
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      scrolled ? 'nav-blur py-2 shadow-lg' : 'bg-transparent py-4'
+      scrolled ? 'nav-blur py-2' : 'bg-transparent py-4'
     }`}>
       <div className="max-w-7xl mx-auto container-padding">
         <div className="flex items-center justify-between">
